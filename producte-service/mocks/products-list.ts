@@ -1,4 +1,6 @@
-export const productsList = [
+import {ProductList} from "../src/types/api-types";
+
+export const productsList: ProductList  = [
     {
         "count": 4,
         "description": "Task 3 Short Product Description1",
