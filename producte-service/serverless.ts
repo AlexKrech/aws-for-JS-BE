@@ -37,6 +37,10 @@ const serverlessConfiguration: AWS = {
       platform: 'node',
       concurrency: 10,
     },
+    autoswagger: {
+      basePath: '/dev',
+      host: 'ymw2ch5lk2.execute-api.eu-west-1.amazonaws.com'
+    }
   },
 };
 
