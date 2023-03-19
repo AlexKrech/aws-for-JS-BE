@@ -4,13 +4,17 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "serverless deploy"
+    "deploy": "serverless deploy",
+    "fill-table": "ts-node src/fill-table"
   },
   "engines": {
     "node": ">=14.15.0"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.279.0",
+    "@aws-sdk/lib-dynamodb": "^3.279.0",
+    "dotenv": "^16.0.3",
+    "uuid": "^9.0.0",
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0"
   },
