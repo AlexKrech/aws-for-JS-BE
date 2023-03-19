@@ -18,7 +18,10 @@ export default {
           },
           404: {
             description: 'Product not found',
-          }
+          },
+          500: {
+            description: 'Something went wrong!',
+          },
         }
       },
     },
