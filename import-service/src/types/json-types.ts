@@ -1,0 +1,1 @@
+export type jsonType =  boolean | number | string | null;
