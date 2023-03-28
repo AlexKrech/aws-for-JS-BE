@@ -31,10 +31,7 @@ const serverlessConfiguration: AWS = {
           {
             Effect: "Allow",
             Action: [
-              "s3:PutObject",
-              "s3:GetObject",
-              "s3:DeleteObject",
-              "s3:ListBucket",
+              "s3:*",
             ],
             Resource: [
               `arn:aws:s3:::${UPLOAD_S3_BUCKET}/*`,
