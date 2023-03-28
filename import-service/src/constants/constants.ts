@@ -1,0 +1,1 @@
+export const UPLOAD_S3_BUCKET = "import-service-alex-krech";
