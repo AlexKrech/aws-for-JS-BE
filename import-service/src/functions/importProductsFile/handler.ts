@@ -14,7 +14,7 @@ const importProductsFile: APIGatewayProxyHandler = async event => {
     const client = new S3Client({ region: "eu-west-1" });
 
     try {
-      const command = new PutObjectCommand({ Bucket: "import-service-alex-krech", Key: catalogPath });
+      const command = new PutObjectCommand( { Bucket: "import-service-alex-krech", Key: catalogPath });
 
       const url = await getSignedUrl(client, command, { expiresIn: 60 });
       return formatJSONResponse(StatuseCodeList.OK, url)

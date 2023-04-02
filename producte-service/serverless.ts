@@ -3,6 +3,9 @@ import type { AWS } from '@serverless/typescript';
 import getProductsList from '@functions/getProductsList';
 import getProductsById from '@functions/getProductsById';
 import createProduct from '@functions/createProduct';
+import catalogBatchProcess from '@functions/catalogBatchProcess';
+
+import {QUEUE_NAME, TOPIC} from "./src/constants/constants";
 
 const serverlessConfiguration: AWS = {
   service: 'producte-service',
@@ -25,10 +28,56 @@ const serverlessConfiguration: AWS = {
       DB_REGION: "eu-north-1",
       PRODUCT_TABLE_NAME: "Product-table",
       STOCK_TABLE_NAME: "Stock-table",
+      SNS_ARN: {
+        Ref: 'SnsTopic'
+      }
+    },
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: 'Allow',
+            Action: 'dynamodb:*',
+            Resource: `*`,
+          },
+          {
+            Effect: "Allow",
+            Action: ["sns:*"],
+            Resource: `arn:aws:sns:eu-west-1:*:${TOPIC}`,
+          },
+        ],
+      },
     },
   },
+
   // import the function via paths
-  functions: { getProductsList, getProductsById, createProduct },
+  functions: { getProductsList, getProductsById, createProduct, catalogBatchProcess },
+  resources: {
+    Resources: {
+      SqsQueue: {
+        Type: "AWS::SQS::Queue",
+        Properties: {
+          QueueName: QUEUE_NAME,
+        },
+      },
+      SnsTopic: {
+        Type: "AWS::SNS::Topic",
+        Properties: {
+          TopicName: TOPIC,
+        },
+      },
+      SnsSubscription: {
+        Type: "AWS::SNS::Subscription",
+        Properties: {
+          Endpoint: "alexkrech1997@gmail.com",
+          Protocol: "email",
+          TopicArn: {
+            Ref: "SnsTopic",
+          },
+        },
+      },
+    }
+  },
   package: { individually: true },
   custom: {
     esbuild: {

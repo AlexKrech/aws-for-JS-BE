@@ -1,7 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 import importFileParser from '@functions/importFileParser';
 import importProductsFile from '@functions/importProductsFile';
-import {UPLOAD_S3_BUCKET} from "./src/constants/constants";
+import {QUEUE_NAME, UPLOAD_S3_BUCKET} from "./src/constants/constants";
 
 const serverlessConfiguration: AWS = {
   service: 'import-service',
@@ -38,6 +38,11 @@ const serverlessConfiguration: AWS = {
               `arn:aws:s3:::${UPLOAD_S3_BUCKET}`,
             ],
           },
+          {
+            Effect: 'Allow',
+            Action: 'sqs:*',
+            Resource: `arn:aws:sqs:eu-west-1:097240409898:${QUEUE_NAME}`,
+          }
         ],
       },
     },
